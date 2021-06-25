@@ -201,8 +201,10 @@ de/czymm/serversigns/legacy/LanguageYmlConverter.java
  de.czymm.serversigns.legacy.LanguageYmlConverter
 de/czymm/serversigns/parsing/CommandType.java
  de.czymm.serversigns.parsing.CommandType
-de/czymm/serversigns/asgard/command/SubCommand.java
- de.czymm.serversigns.asgard.command.SubCommand
+de/czymm/serversigns/listeners/PlayerListener.java
+ de.czymm.serversigns.listeners.PlayerListener
+ de.czymm.serversigns.listeners.PlayerListener$1
+ de.czymm.serversigns.listeners.PlayerListener$PlatePair
 de/czymm/serversigns/hooks/HookWrapper.java
  de.czymm.serversigns.hooks.HookWrapper
 de/czymm/serversigns/taskmanager/datastorage/ISQLiteTaskDeleter.java
@@ -403,24 +405,14 @@ de/czymm/serversigns/utils/InventoryUtils.java
  de.czymm.serversigns.utils.InventoryUtils
 de/czymm/serversigns/commands/SubCommandEdit.java
  de.czymm.serversigns.commands.SubCommandEdit
-de/czymm/serversigns/asgard/command/impl/SubCommandLIST.java
- de.czymm.serversigns.asgard.command.impl.SubCommandLIST
-de/czymm/serversigns/asgard/walk/WalkConfig.java
- de.czymm.serversigns.asgard.walk.WalkConfig
-de/czymm/serversigns/asgard/command/CommandHandler.java
- de.czymm.serversigns.asgard.command.CommandHandler
-de/czymm/serversigns/listeners/PlayerListener.java
- de.czymm.serversigns.listeners.PlayerListener
- de.czymm.serversigns.listeners.PlayerListener$1
- de.czymm.serversigns.listeners.PlayerListener$PlatePair
-de/czymm/serversigns/asgard/utils/LocationUtil.java
- de.czymm.serversigns.asgard.utils.LocationUtil
-de/czymm/serversigns/asgard/command/impl/SubCommandREMOVE.java
- de.czymm.serversigns.asgard.command.impl.SubCommandREMOVE
-de/czymm/serversigns/asgard/command/impl/SubCommandADD.java
- de.czymm.serversigns.asgard.command.impl.SubCommandADD
 de/czymm/serversigns/asgard/walk/WalkHandler.java
  de.czymm.serversigns.asgard.walk.WalkHandler
+de/czymm/serversigns/asgard/walk/WalkConfig.java
+ de.czymm.serversigns.asgard.walk.WalkConfig
+de/czymm/serversigns/asgard/utils/LocationUtil.java
+ de.czymm.serversigns.asgard.utils.LocationUtil
+de/czymm/serversigns/asgard/command/CommandHandler.java
+ de.czymm.serversigns.asgard.command.CommandHandler
 de/czymm/serversigns/ServerSignsPlugin.java
  de.czymm.serversigns.ServerSignsPlugin
  de.czymm.serversigns.ServerSignsPlugin$1

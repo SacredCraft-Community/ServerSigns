@@ -19,9 +19,9 @@ commands:
     aliases: svsr
     usage: /<command>
 
-  serversignsasgard:
+  svsmode:
       description: Additional handles for asgard
-      aliases: svsa
+      aliases: setsvsmode
       usage: /<command>
 
 permissions:

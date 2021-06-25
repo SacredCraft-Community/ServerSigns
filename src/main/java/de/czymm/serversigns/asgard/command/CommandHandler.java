@@ -1,15 +1,18 @@
 package de.czymm.serversigns.asgard.command;
 
-import de.czymm.serversigns.asgard.command.impl.SubCommandADD;
-import de.czymm.serversigns.asgard.command.impl.SubCommandLIST;
-import de.czymm.serversigns.asgard.command.impl.SubCommandREMOVE;
+import de.czymm.serversigns.asgard.utils.LocationUtil;
 import de.czymm.serversigns.asgard.utils.SendUtil;
+import de.czymm.serversigns.asgard.walk.WalkConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-import java.util.Locale;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * de.czymm.serversigns.asgard.command.CommandHandler
@@ -20,37 +23,40 @@ import java.util.Locale;
  **/
 public class CommandHandler implements CommandExecutor {
     public void init(){
-        Bukkit.getPluginCommand("serversignsasgard").setExecutor(this);
+        Bukkit.getPluginCommand("svsmode").setExecutor(this);
     }
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            SendUtil.tell(sender, "&f/svsa add &8- &7将指向的方块设置为walk类型");
-            SendUtil.tell(sender, "&f/svsa remove &8- &7将指向的方块从walk类型方块list中删除");
-            SendUtil.tell(sender, "&f/svsa list &8- &7列出所有walk类型的方块");
+        if (!(sender instanceof Player)){
+            SendUtil.warn(sender,"该命令只有玩家可以使用");
             return true;
         }
-        executeSubCommand(sender, args);
-        return true;
-    }
-
-    private void executeSubCommand(CommandSender sender,String[] args){
-        switch (args[0].toUpperCase()){
-            case "ADD": {
-                new SubCommandADD().execute(sender, args);
-                return;
+        Block block = LocationUtil.getTargetBlockExact((Player) sender);
+        if (block != null){
+            if (block.getType() == Material.AIR){
+                SendUtil.warn(sender,"你不能右键空气");
+                return true;
             }
-            case "REMOVE":{
-                new SubCommandREMOVE().execute(sender, args);
-                return;
+            String str = LocationUtil.toString(block.getLocation());
+            if (WalkConfig.data.getStringList("walk") == null){
+                WalkConfig.data.set("walk", Collections.singletonList(str));
+                WalkConfig.update();
+                SendUtil.tell(sender,"切换ServerSigns方块类型: &f踩踏");
+                return true;
             }
-            case "LIST":{
-                new SubCommandLIST().execute(sender, args);
-                return;
+            if (WalkConfig.data.getStringList("walk").contains(str)){
+                List<String> list = WalkConfig.data.getStringList("walk");
+                list.remove(str);
+                WalkConfig.data.set("walk", list);
+                SendUtil.tell(sender,"切换ServerSigns方块类型: &f交互");
+                return true;
             }
-            default:{
-                SendUtil.warn(sender,"参数错误");
-            }
+            List<String> list = WalkConfig.data.getStringList("walk");
+            list.add(str);
+            WalkConfig.data.set("walk", list);
+            WalkConfig.update();
+            SendUtil.tell(sender,"切换ServerSigns方块类型: &f踩踏");
         }
+        return true;
     }
 }
