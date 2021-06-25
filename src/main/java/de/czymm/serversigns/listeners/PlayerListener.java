@@ -18,6 +18,8 @@
 package de.czymm.serversigns.listeners;
 
 import de.czymm.serversigns.ServerSignsPlugin;
+import de.czymm.serversigns.asgard.utils.LocationUtil;
+import de.czymm.serversigns.asgard.walk.WalkConfig;
 import de.czymm.serversigns.meta.SVSMetaKey;
 import de.czymm.serversigns.meta.SVSMetaManager;
 import de.czymm.serversigns.signs.ServerSign;
@@ -81,6 +83,11 @@ public class PlayerListener implements Listener {
     public void playerInteractCheck(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         Block block = event.getClickedBlock();
+
+        // 若为walk类型，不执行interact操作
+        if(WalkConfig.data.getStringList("walk").contains(LocationUtil.toString(block.getLocation()))){
+            return;
+        }
 
         if (SVSMetaManager.hasExclusiveMeta(player, SVSMetaKey.YES) || isOffHand(event)) {
             return;

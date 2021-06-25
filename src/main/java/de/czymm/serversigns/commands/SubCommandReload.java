@@ -18,6 +18,7 @@
 package de.czymm.serversigns.commands;
 
 import de.czymm.serversigns.ServerSignsPlugin;
+import de.czymm.serversigns.asgard.walk.WalkConfig;
 import de.czymm.serversigns.commands.core.SubCommand;
 import de.czymm.serversigns.config.ConfigLoadingException;
 import de.czymm.serversigns.translations.Message;
@@ -51,5 +52,7 @@ public class SubCommandReload extends SubCommand {
             }
             msg(Message.RELOAD_SUCCESS);
         }
+        // 重载WalkConfig
+        WalkConfig.reload();
     }
 }

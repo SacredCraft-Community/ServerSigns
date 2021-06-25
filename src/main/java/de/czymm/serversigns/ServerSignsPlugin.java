@@ -17,6 +17,9 @@
 
 package de.czymm.serversigns;
 
+import de.czymm.serversigns.asgard.command.CommandHandler;
+import de.czymm.serversigns.asgard.walk.WalkConfig;
+import de.czymm.serversigns.asgard.walk.WalkHandler;
 import de.czymm.serversigns.commands.CommandServerSigns;
 import de.czymm.serversigns.commands.CommandServerSignsRemote;
 import de.czymm.serversigns.commands.core.CommandException;
@@ -57,6 +60,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 public class ServerSignsPlugin extends JavaPlugin {
+    public static ServerSignsPlugin INSTANCE = null;
+
     private static Logger logger;
     private Metrics metrics;
 
@@ -88,6 +93,10 @@ public class ServerSignsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        INSTANCE = this;
+        new WalkHandler().init();
+        WalkConfig.init();
+        new CommandHandler().init();
         try {
             logger = getLogger();
             Path dataFolder = Files.createDirectories(getDataFolder().toPath());
