@@ -1,6 +1,6 @@
 name: ServerSigns
 main: de.czymm.serversigns.ServerSignsPlugin
-version: ${version}
+version: 4.7.0
 api-version: 1.13
 authors: [CalibeR50, Exloki]
 softdepend: [Vault, NoCheatPlus, Essentials, PlaceholderAPI]

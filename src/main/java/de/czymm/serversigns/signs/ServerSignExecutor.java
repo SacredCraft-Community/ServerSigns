@@ -35,6 +35,9 @@ import de.czymm.serversigns.utils.ItemUtils;
 import de.czymm.serversigns.utils.StringUtils;
 import de.czymm.serversigns.utils.TimeUtils;
 import de.czymm.serversigns.utils.TimeUtils.TimeUnit;
+import io.izzel.taboolib.module.i18n.I18n;
+import io.izzel.taboolib.module.locale.TLocale;
+import io.izzel.taboolib.module.tellraw.TellrawJson;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -557,7 +560,12 @@ public class ServerSignExecutor {
             if (sign.shouldDisplayInternalMessages()) {
                 plugin.send(player, Message.NOT_ENOUGH_ITEMS);
                 for (ItemStack required : leftover) {
-                    plugin.sendBasic(player, ItemUtils.getDescription(required, plugin.config.getMessageColour()));
+                    // json
+                    TellrawJson.create().append(this.plugin.config.getMessagePrefix() + TLocale.Translate.setColored(" &f- &7"))
+                        .append(required.getItemMeta().getDisplayName() == null ? I18n.get().getName(required) : required.getItemMeta().getDisplayName())
+                        .hoverItem(required)
+                        .append(TLocale.Translate.setColored("&f * ")+required.getAmount())
+                        .send(player);
                 }
             }
             return false;
@@ -584,7 +592,11 @@ public class ServerSignExecutor {
         if (sign.shouldDisplayInternalMessages()) {
             plugin.send(player, Message.MUST_BE_HOLDING);
             for (ItemStack required : sign.getHeldItems()) {
-                plugin.send(player, ItemUtils.getDescription(required, plugin.config.getMessageColour()));
+                TellrawJson.create().append(this.plugin.config.getMessagePrefix() + TLocale.Translate.setColored(" &f- &7"))
+                    .append(required.getItemMeta().getDisplayName() == null ? I18n.get().getName(required) : required.getItemMeta().getDisplayName())
+                    .hoverItem(required)
+                    .append(TLocale.Translate.setColored("&f * ")+required.getAmount())
+                    .send(player);
             }
         }
         return false;
